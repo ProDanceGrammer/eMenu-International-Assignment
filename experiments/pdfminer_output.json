@@ -1,0 +1,106 @@
+[
+  {
+    "page": 1,
+    "text": "SALADS & SOUP\nCHOPPED SALAD \nromaine lettuce, roasted chicken, avocado, tomatoes, cabbage, bacon, scallions, corn, \ntortilla chips, citrus vinaigrette\n$14\nHOUSE SALAD \niceberg lettuce, diced tomatoes, cucumbers, fried onion strings, shredded cheese\nSOUP OF THE DAY \nask your server about our soup of the day\nHANDHELDS\nserved with choice of side\ngluten-free bread available upon request\nCRISPY CHICKEN \nlettuce, tomato, pickles, onion, brioche\nCUBAN ROLL \npulled pork, black forest ham, swiss, pickles, yellow mustard, hoagie\nBLACKENED CHICKEN \nbacon onion jam, pepperjack, lettuce, tomato, pickle, spicy mayo, brioche bun\nBURGERS\nserved with choice of side\nsub beyond burger +$2, gluten-free bread available upon request\nALL AMERICAN BURGER \n7 oz. steakburger, choice of cheese, lettuce, tomato, onion, pickles, brioche bun \nBBQ BACON BURGER \n7 oz. steakburger, rootbeer bbq sauce, smoked bacon, cheddar, onion strings, \nbrioche bun\n$12\n$6\n$17\n$18\n$17\n$17\n$19\nCHICAGO DOG BURGER \n7 oz. steakburger, grilled hot dog, chicago sauce, american, grilled onions, brioche bun\n$19\nMAIN EVENT\nCLASSIC FISH & CHIPS \natlantic cod, sidewinders, coleslaw, tartar sauce\nSTEAK FRITES \n10 oz. sirloin filet, garlic fries, herbed butter\nMAC DINNER “ORIGINAL” MAC \nour famous house mac & cheese\nLOADED MAC \nchopped bacon, green onions, sour cream, cheddar jack, crispy potatoes\nNASHVILLE MAC \ncrispy chicken, nashville hot sauce, sour cream\nSMOKED MAC \nsmoked pulled pork, fried onions, bbq sauce\n$20\n$32\n$18\n$22\n$23\n$23\nLEADING OFF\nJUMBO GERMAN PRETZEL \ncaramelized onion dip, queso blanco, house-made honey mustard\nCHEESE WEDGES \nmarinara sauce \n$16\n$14\nPORK NACHOS \npulled pork, chorizo, hot corn dip, pickled red onions, queso blanco, cilantro, avocado\n$20\n“ALL IN” SIDEWINDERS \nsidewinder fries, pulled pork, bbq sauce, queso blanco, chopped bacon, jalapeños, \npickled red onions, sour cream, green onions\nSWEET CHILI BRUSSELS SPROUTS \nfpo description, fpo description, fpo description\nSLIDER TOWERS\nserved with sidewinder fries\nHOT DOG TOWER \nfour mini hotdogs with chicago sauce\nNASHVILLE CHICKEN SLIDERS \nlettuce, coleslaw, pickles, biscuit\nDOUBLE-FRIED CHICKEN SLIDERS \nkorean bbq sauce & coleslaw\nBIG EASY SLIDERS \njumbo shrimp, lettuce, spicy remoulade, tomato\nSUGAR WAFFLE SLIDERS \npulled pork, cheddar, smoky bbq sauce, crispy onions\n$16\n$12\n$18\n$18\n$18\n$18\n$18\nAIN’T NO THING BUT A CHICKEN…\nJUMBO CHICKEN WINGS\nBREADED CHICKEN TENDERS\n6 WINGS \n12 WINGS \n18 WINGS \n$12\n3 WINGS \n$19\n6 WINGS \n$25\nSIGNATURE SAUCES\nGARLIC PARMESAN\nMEMPHIS BBQ\nKOREAN BBQ\nWHISKEY & SMOKE\nSWEET CHILI\nBUFFALO\nHONEY HABANERO\nNASHVILLE HOT\nFLIGHTS\nBACON BOURBON GHOST\nVAMPIRE SLAYER\nSIGNATURE RUBS\nMESQUITE\nSALT & VINEGAR\nCAJUN\nMAPLE CHIPOTLE\n4 WINGS & 4 SAUCES \n$X\n8 WINGS & 8 SAUCES \n$X\n$12\n$22\nSIDES\nSIDEWINDER FRIES \nCOLESLAW \nSWEET POTATO FRIES \n$8\n$4\n$7\nCRISPY BRUSSELS SPROUTS  $6\nONION PETALS \nSEASONAL VEGETABLE \nOVERTIME\nCHURRO DOG \nchocolate long john, churro, vanilla ice cream, whipped cream, \ncaramel & chocolate sauce, nut crunch\nDUBAI TRIFLE \nchocolate brownie, pistachio cream, toasted coconut, chocolate ganache\nNY CHEESECAKE \nmixed berry sauce\nDOUGHNUT HOLES \nfried dough filled with mixed berries & chocolate sauce\n$8\n$6\n$12\n$12\n$12\n$10\n",
+    "elements_count": 97,
+    "sample_elements": [
+      {
+        "bbox": [
+          414.0,
+          1118.2560999999998,
+          539.576,
+          1134.2560999999998
+        ],
+        "text": "SALADS & SOUP\n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1072.0082,
+          738.2088000000002,
+          1100.2881
+        ],
+        "text": "CHOPPED SALAD \nromaine lettuce, roasted chicken, avocado, tomatoes, cabbage, bacon, scallions, corn,"
+      },
+      {
+        "bbox": [
+          737.5901,
+          1090.6480999999999,
+          755.9970999999999,
+          1100.6480999999999
+        ],
+        "text": "$14\n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1041.4080999999999,
+          720.6896,
+          1060.0882000000001
+        ],
+        "text": "HOUSE SALAD \niceberg lettuce, diced tomatoes, cucumbers, fried onion strings, shredded cheese\n"
+      },
+      {
+        "bbox": [
+          413.9999,
+          1010.8081,
+          568.0719,
+          1029.4881
+        ],
+        "text": "SOUP OF THE DAY \nask your server about our soup of the day\n"
+      }
+    ]
+  },
+  {
+    "page": 2,
+    "text": "DRAFT BEER\nMILLER LITE \nCOORS LIGHT \nBUD LIGHT \nMICHELOB ULTRA \nBLUE MOON BELGIAN WHITE \nHEINEKEN ORIGINAL \nMODELO ESPECIAL \nDOS EQUIS LAGER ESPECIAL \nSAMUEL ADAMS BOSTON LAGER \nDOGFISH HEAD IPA \nSTONE IPA \nNEW BELGIUM FAT TIRE ALE \nPERONI NASTRO AZZURRO \nREVOLUTION ANTI-HERO IPA \nYUENGLING TRADITIONAL LAGER \nANGRY ORCHARD HARD CIDER \nBOTTLES & CANS\nMILLER LITE \nCOORS LIGHT \nBUD LIGHT \nMICHELOB ULTRA \nBLUE MOON BELGIAN WHITE \nHEINEKEN 0.0 \nCORONA EXTRA \nSUN CRUISER ICED TEA VODKA \nTWISTED TEA HARD ICED TEA \nDRINK MENU\nSIGNATURE COCKTAILS\nDILLINOIS \nmiller lite, pickle brine, lime juice, hot sauce\nCHI-LADA ROYALE \nmodelo especial, zing zang michelada mix, lime juice, seasoning\nBENNY’S BULLSEYE BLOODY \nnew amsterdam heat check vodka, zing zang bloody mary mix, olive brine, lime juice, \nsmoked paprika\nWATERMELON SUGAR HIGH \npatrón reposado tequila, dos hombres mezcal, reàl watermelon puree, fever-tree \nsparkling pink grapefruit\nSIDE BETS FLIGHT BOARD \ndillinois, beer of choice, pickleback shot, garnished with dill popcorn\n$X\n$X\n$X\n$X\n$X\nCLEAR THE BOARD \n$X\nTRULY HARD SELTZER \ndon julio blanco tequila, cointreau, supasawa, agave syrup, garnished with a jello shot\nPEAR PRESSURE \ngrey goose la poire vodka, belle de brillet pear liqueur, rich vanilla syrup, lemon juice, \nfever-tree ginger beer\nMONSTERS OF MIDWAY \nknob creek rye, maple syrup, lemon juice, egg whites, smoked cinnamon bitters, \norange bitters\nZERO PROOF\nGOLDEN B-SIDE \nritual zero-proof tequila alternative, giffard aperitif, pineapple, reàl mango puree, \nfever-tree sparkling sicilian lemonade\nPEACH 42 \nseedlip grove 42, giffard aperitif, reàl peach puree, lemon, orange blossom water\nB&T \nHIGH NOON VODKA SELTZER \nWHITE CLAW HARD SELTZER \nWINES\nDOMAINE STE. MICHELLE SPARKLING \nCHATEAU STE. MICHELLE RIESLING \n14 HANDS CHARDONNAY \nA TO Z PINOT NOIR \nCOLUMBIA CREST RED BLEND \nENERGY \nRED BULL ENERGY DRINK \nRED BULL SUGARFREE\nRED BULL RED EDITION (WATERMELON)\n$X\n$X\n$X\n$X\n$X\nseedlip 108, reàl blueberry puree, rich vanilla, lemon, fever-tree elderflower tonic water\nRED BULL YELLOW EDITION (TROPICAL)\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n$X\n",
+    "elements_count": 111,
+    "sample_elements": [
+      {
+        "bbox": [
+          414.0,
+          1104.7560999999998,
+          511.5824,
+          1120.7560999999998
+        ],
+        "text": "DRAFT BEER\n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1076.7881,
+          472.90000000000003,
+          1086.7881
+        ],
+        "text": "MILLER LITE \n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1055.7881,
+          482.475,
+          1065.7881
+        ],
+        "text": "COORS LIGHT \n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1034.7881,
+          468.61600000000004,
+          1044.7881
+        ],
+        "text": "BUD LIGHT \n"
+      },
+      {
+        "bbox": [
+          414.0,
+          1013.7881000000001,
+          501.28000000000003,
+          1023.7881000000001
+        ],
+        "text": "MICHELOB ULTRA \n"
+      }
+    ]
+  }
+]

@@ -48,3 +48,6 @@ htmlcov/
 
 # Logs
 *.log
+
+# Project specific
+ignore/

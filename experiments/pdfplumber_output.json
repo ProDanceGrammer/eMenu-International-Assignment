@@ -1,0 +1,258 @@
+[
+  {
+    "page": 1,
+    "text": "SALADS & SOUP\nCHOPPED SALAD $14\nromaine lettuce, roasted chicken, avocado, tomatoes, cabbage, bacon, scallions, corn,\ntortilla chips, citrus vinaigrette\nHOUSE SALAD $12\niceberg lettuce, diced tomatoes, cucumbers, fried onion strings, shredded cheese\nSOUP OF THE DAY $6\nask your server about our soup of the day\nHANDHELDS\nserved with choice of side\ngluten-free bread available upon request\nCRISPY CHICKEN $17\nlettuce, tomato, pickles, onion, brioche\nCUBAN ROLL $18\nLEADING OFF pulled pork, black forest ham, swiss, pickles, yellow mustard, hoagie\nBLACKENED CHICKEN $17\nJUMBO GERMAN PRETZEL $16 bacon onion jam, pepperjack, lettuce, tomato, pickle, spicy mayo, brioche bun\ncaramelized onion dip, queso blanco, house-made honey mustard\nCHEESE WEDGES $14\nBURGERS\nmarinara sauce\nPORK NACHOS $20 served with choice of side\nsub beyond burger +$2, gluten-free bread available upon request\npulled pork, chorizo, hot corn dip, pickled red onions, queso blanco, cilantro, avocado\nALL AMERICAN BURGER $17\n“ALL IN” SIDEWINDERS $16\n7 oz. steakburger, choice of cheese, lettuce, tomato, onion, pickles, brioche bun\nsidewinder fries, pulled pork, bbq sauce, queso blanco, chopped bacon, jalapeños,\npickled red onions, sour cream, green onions\nBBQ BACON BURGER $19\nSWEET CHILI BRUSSELS SPROUTS $12 7 oz. steakburger, rootbeer bbq sauce, smoked bacon, cheddar, onion strings,\nbrioche bun\nfpo description, fpo description, fpo description\nCHICAGO DOG BURGER $19\n7 oz. steakburger, grilled hot dog, chicago sauce, american, grilled onions, brioche bun\nSLIDER TOWERS\nserved with sidewinder fries\nMAIN EVENT\nHOT DOG TOWER $18\nfour mini hotdogs with chicago sauce\nCLASSIC FISH & CHIPS $20\nNASHVILLE CHICKEN SLIDERS $18 atlantic cod, sidewinders, coleslaw, tartar sauce\nlettuce, coleslaw, pickles, biscuit\nSTEAK FRITES $32\nDOUBLE-FRIED CHICKEN SLIDERS $18 10 oz. sirloin filet, garlic fries, herbed butter\nkorean bbq sauce & coleslaw\nMAC DINNER “ORIGINAL” MAC $18\nBIG EASY SLIDERS $18 our famous house mac & cheese\njumbo shrimp, lettuce, spicy remoulade, tomato\nLOADED MAC $22\nSUGAR WAFFLE SLIDERS $18 chopped bacon, green onions, sour cream, cheddar jack, crispy potatoes\npulled pork, cheddar, smoky bbq sauce, crispy onions\nNASHVILLE MAC $23\ncrispy chicken, nashville hot sauce, sour cream\nAIN’T NO THING BUT A CHICKEN… SMOKED MAC $23\nsmoked pulled pork, fried onions, bbq sauce\nJUMBO CHICKEN WINGS BREADED CHICKEN TENDERS\nSIDES\n6 WINGS $12 3 WINGS $12\n12 WINGS $19 6 WINGS $22\nSIDEWINDER FRIES $8 CRISPY BRUSSELS SPROUTS $6\n18 WINGS $25\nCOLESLAW $4 ONION PETALS $8\nSIGNATURE SAUCES\nSWEET POTATO FRIES $7 SEASONAL VEGETABLE $6\nGARLIC PARMESAN BACON BOURBON GHOST\nMEMPHIS BBQ VAMPIRE SLAYER\nKOREAN BBQ SIGNATURE RUBS OVERTIME\nWHISKEY & SMOKE MESQUITE\nSWEET CHILI SALT & VINEGAR\nCHURRO DOG $12\nBUFFALO CAJUN chocolate long john, churro, vanilla ice cream, whipped cream,\ncaramel & chocolate sauce, nut crunch\nHONEY HABANERO MAPLE CHIPOTLE\nNASHVILLE HOT DUBAI TRIFLE $12\nchocolate brownie, pistachio cream, toasted coconut, chocolate ganache\nFLIGHTS NY CHEESECAKE $12\nmixed berry sauce\n4 WINGS & 4 SAUCES $X 8 WINGS & 8 SAUCES $X\nDOUGHNUT HOLES $10\nfried dough filled with mixed berries & chocolate sauce\n* Contains (or may contain) raw or undercooked ingredients. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions.",
+    "word_count": 522,
+    "tables_found": 1,
+    "sample_words": [
+      {
+        "text": "SALADS",
+        "x0": 414.0,
+        "x1": 476.9536,
+        "top": 89.74390000000017,
+        "doctop": 89.74390000000017,
+        "bottom": 105.74390000000017,
+        "upright": true,
+        "height": 16.0,
+        "width": 62.953599999999994,
+        "direction": "ltr"
+      },
+      {
+        "text": "&",
+        "x0": 480.1856,
+        "x1": 491.5616,
+        "top": 89.74390000000017,
+        "doctop": 89.74390000000017,
+        "bottom": 105.74390000000017,
+        "upright": true,
+        "height": 16.0,
+        "width": 11.375999999999976,
+        "direction": "ltr"
+      },
+      {
+        "text": "SOUP",
+        "x0": 494.79359999999997,
+        "x1": 539.576,
+        "top": 89.74390000000017,
+        "doctop": 89.74390000000017,
+        "bottom": 105.74390000000017,
+        "upright": true,
+        "height": 16.0,
+        "width": 44.78240000000005,
+        "direction": "ltr"
+      },
+      {
+        "text": "CHOPPED",
+        "x0": 414.0,
+        "x1": 462.363,
+        "top": 123.71190000000001,
+        "doctop": 123.71190000000001,
+        "bottom": 133.7119,
+        "upright": true,
+        "height": 10.0,
+        "width": 48.363,
+        "direction": "ltr"
+      },
+      {
+        "text": "SALAD",
+        "x0": 464.533,
+        "x1": 497.379,
+        "top": 123.71190000000001,
+        "doctop": 123.71190000000001,
+        "bottom": 133.7119,
+        "upright": true,
+        "height": 10.0,
+        "width": 32.846000000000004,
+        "direction": "ltr"
+      },
+      {
+        "text": "$14",
+        "x0": 737.5901,
+        "x1": 755.9970999999999,
+        "top": 123.35190000000011,
+        "doctop": 123.35190000000011,
+        "bottom": 133.35190000000011,
+        "upright": true,
+        "height": 10.0,
+        "width": 18.406999999999925,
+        "direction": "ltr"
+      },
+      {
+        "text": "romaine",
+        "x0": 414.0,
+        "x1": 445.2328,
+        "top": 134.3918000000001,
+        "doctop": 134.3918000000001,
+        "bottom": 142.3918000000001,
+        "upright": true,
+        "height": 8.0,
+        "width": 31.232799999999997,
+        "direction": "ltr"
+      },
+      {
+        "text": "lettuce,",
+        "x0": 447.2168,
+        "x1": 475.49600000000004,
+        "top": 134.3918000000001,
+        "doctop": 134.3918000000001,
+        "bottom": 142.3918000000001,
+        "upright": true,
+        "height": 8.0,
+        "width": 28.27920000000006,
+        "direction": "ltr"
+      },
+      {
+        "text": "roasted",
+        "x0": 477.48,
+        "x1": 506.0104,
+        "top": 134.3918000000001,
+        "doctop": 134.3918000000001,
+        "bottom": 142.3918000000001,
+        "upright": true,
+        "height": 8.0,
+        "width": 28.530399999999986,
+        "direction": "ltr"
+      },
+      {
+        "text": "chicken,",
+        "x0": 507.99440000000004,
+        "x1": 538.8648,
+        "top": 134.3918000000001,
+        "doctop": 134.3918000000001,
+        "bottom": 142.3918000000001,
+        "upright": true,
+        "height": 8.0,
+        "width": 30.870399999999904,
+        "direction": "ltr"
+      }
+    ]
+  },
+  {
+    "page": 2,
+    "text": "DRAFT BEER\nMILLER LITE $X\nCOORS LIGHT $X\nBUD LIGHT $X\nMICHELOB ULTRA $X\nBLUE MOON BELGIAN WHITE $X\nHEINEKEN ORIGINAL $X\nMODELO ESPECIAL $X\nDOS EQUIS LAGER ESPECIAL $X\nSAMUEL ADAMS BOSTON LAGER $X\nDOGFISH HEAD IPA $X\nSTONE IPA $X\nDRINK MENU\nNEW BELGIUM FAT TIRE ALE $X\nPERONI NASTRO AZZURRO $X\nREVOLUTION ANTI-HERO IPA $X\nSIGNATURE COCKTAILS YUENGLING TRADITIONAL LAGER $X\nANGRY ORCHARD HARD CIDER $X\nDILLINOIS $X\nmiller lite, pickle brine, lime juice, hot sauce BOTTLES & CANS\nCHI-LADA ROYALE $X\nMILLER LITE $X\nmodelo especial, zing zang michelada mix, lime juice, seasoning\nCOORS LIGHT $X\nBENNY’S BULLSEYE BLOODY $X\nBUD LIGHT $X\nnew amsterdam heat check vodka, zing zang bloody mary mix, olive brine, lime juice,\nsmoked paprika MICHELOB ULTRA $X\nBLUE MOON BELGIAN WHITE $X\nWATERMELON SUGAR HIGH $X\npatrón reposado tequila, dos hombres mezcal, reàl watermelon puree, fever-tree HEINEKEN 0.0 $X\nsparkling pink grapefruit\nCORONA EXTRA $X\nSIDE BETS FLIGHT BOARD $X SUN CRUISER ICED TEA VODKA $X\ndillinois, beer of choice, pickleback shot, garnished with dill popcorn\nTWISTED TEA HARD ICED TEA $X\nCLEAR THE BOARD $X TRULY HARD SELTZER $X\ndon julio blanco tequila, cointreau, supasawa, agave syrup, garnished with a jello shot\nHIGH NOON VODKA SELTZER $X\nPEAR PRESSURE $X WHITE CLAW HARD SELTZER $X\ngrey goose la poire vodka, belle de brillet pear liqueur, rich vanilla syrup, lemon juice,\nfever-tree ginger beer\nWINES\nMONSTERS OF MIDWAY $X\nknob creek rye, maple syrup, lemon juice, egg whites, smoked cinnamon bitters, DOMAINE STE. MICHELLE SPARKLING $X\norange bitters\nCHATEAU STE. MICHELLE RIESLING $X\n14 HANDS CHARDONNAY $X\nZERO PROOF A TO Z PINOT NOIR $X\nCOLUMBIA CREST RED BLEND $X\nGOLDEN B-SIDE $X\nritual zero-proof tequila alternative, giffard aperitif, pineapple, reàl mango puree, ENERGY\n$X\nfever-tree sparkling sicilian lemonade\nRED BULL ENERGY DRINK\nPEACH 42 $X\nseedlip grove 42, giffard aperitif, reàl peach puree, lemon, orange blossom water RED BULL SUGARFREE\nRED BULL RED EDITION (WATERMELON)\nB&T $X\nseedlip 108, reàl blueberry puree, rich vanilla, lemon, fever-tree elderflower tonic water RED BULL YELLOW EDITION (TROPICAL)",
+    "word_count": 344,
+    "tables_found": 1,
+    "sample_words": [
+      {
+        "text": "DRAFT",
+        "x0": 414.0,
+        "x1": 467.58079999999995,
+        "top": 103.24390000000017,
+        "doctop": 1327.2439000000002,
+        "bottom": 119.24390000000017,
+        "upright": true,
+        "height": 16.0,
+        "width": 53.580799999999954,
+        "direction": "ltr"
+      },
+      {
+        "text": "BEER",
+        "x0": 470.8128,
+        "x1": 511.5824,
+        "top": 103.24390000000017,
+        "doctop": 1327.2439000000002,
+        "bottom": 119.24390000000017,
+        "upright": true,
+        "height": 16.0,
+        "width": 40.769600000000025,
+        "direction": "ltr"
+      },
+      {
+        "text": "MILLER",
+        "x0": 414.0,
+        "x1": 448.568,
+        "top": 137.2119,
+        "doctop": 1361.2119,
+        "bottom": 147.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 34.567999999999984,
+        "direction": "ltr"
+      },
+      {
+        "text": "LITE",
+        "x0": 450.737,
+        "x1": 470.721,
+        "top": 137.2119,
+        "doctop": 1361.2119,
+        "bottom": 147.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 19.98399999999998,
+        "direction": "ltr"
+      },
+      {
+        "text": "$X",
+        "x0": 740.7131,
+        "x1": 756.0031000000001,
+        "top": 136.85190000000011,
+        "doctop": 1360.8519000000001,
+        "bottom": 146.85190000000011,
+        "upright": true,
+        "height": 10.0,
+        "width": 15.290000000000077,
+        "direction": "ltr"
+      },
+      {
+        "text": "COORS",
+        "x0": 414.0,
+        "x1": 449.08099999999996,
+        "top": 158.2119,
+        "doctop": 1382.2119,
+        "bottom": 168.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 35.08099999999996,
+        "direction": "ltr"
+      },
+      {
+        "text": "LIGHT",
+        "x0": 451.251,
+        "x1": 480.305,
+        "top": 158.2119,
+        "doctop": 1382.2119,
+        "bottom": 168.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 29.05400000000003,
+        "direction": "ltr"
+      },
+      {
+        "text": "$X",
+        "x0": 740.7131,
+        "x1": 756.0031000000001,
+        "top": 157.85190000000011,
+        "doctop": 1381.8519000000001,
+        "bottom": 167.85190000000011,
+        "upright": true,
+        "height": 10.0,
+        "width": 15.290000000000077,
+        "direction": "ltr"
+      },
+      {
+        "text": "BUD",
+        "x0": 414.0,
+        "x1": 435.223,
+        "top": 179.2119,
+        "doctop": 1403.2119,
+        "bottom": 189.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 21.223000000000013,
+        "direction": "ltr"
+      },
+      {
+        "text": "LIGHT",
+        "x0": 437.39300000000003,
+        "x1": 466.44599999999997,
+        "top": 179.2119,
+        "doctop": 1403.2119,
+        "bottom": 189.2119,
+        "upright": true,
+        "height": 10.0,
+        "width": 29.05299999999994,
+        "direction": "ltr"
+      }
+    ]
+  }
+]
