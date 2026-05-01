@@ -36,6 +36,13 @@ class PDFParser:
                 # Extract words with positioning
                 words = page.extract_words()
 
+                # Get character-level data for font sizes
+                chars = page.chars
+
+                # Add font size directly to each word
+                for word in words:
+                    word['font_size'] = self._get_word_font_size(word, chars)
+
                 # Separate into columns
                 left_column, right_column = self._separate_columns(words)
 
@@ -54,6 +61,32 @@ class PDFParser:
                     blocks.append(line)
 
         return blocks
+
+    def _get_word_font_size(self, word: Dict, chars: List[Dict]) -> float:
+        """
+        Get font size for a word from character data.
+
+        Args:
+            word: Word dictionary
+            chars: List of character dictionaries with font info
+
+        Returns:
+            Font size (most common size in the word)
+        """
+        # Find characters that belong to this word
+        word_chars = [
+            c for c in chars
+            if (word['x0'] <= c['x0'] <= word['x1'] and
+                abs(c['top'] - word['top']) < 2)
+        ]
+
+        if word_chars:
+            # Use the most common font size in this word
+            sizes = [c.get('size', 0) for c in word_chars if c.get('size', 0) > 0]
+            if sizes:
+                return max(set(sizes), key=sizes.count)
+
+        return 0
 
     def _separate_columns(self, words: List[Dict]) -> tuple:
         """
@@ -82,6 +115,7 @@ class PDFParser:
     def _group_words_into_lines(self, words: List[Dict]) -> List[Dict[str, Any]]:
         """
         Group words into lines based on vertical position.
+        Detects subcolumns within lines based on x-coordinate gaps.
 
         Args:
             words: List of word dictionaries with position data
@@ -110,15 +144,63 @@ class PDFParser:
             else:
                 # Start new line
                 if current_line:
-                    lines.append(self._create_line_dict(current_line))
+                    # Split line into subcolumns if needed
+                    sublines = self._split_line_by_x_gaps(current_line)
+                    lines.extend(sublines)
                 current_line = [word]
                 current_y = word_y
 
         # Add last line
         if current_line:
-            lines.append(self._create_line_dict(current_line))
+            sublines = self._split_line_by_x_gaps(current_line)
+            lines.extend(sublines)
 
         return lines
+
+    def _split_line_by_x_gaps(self, words: List[Dict]) -> List[Dict[str, Any]]:
+        """
+        Split a line into multiple items based on x-coordinate gaps.
+        Large horizontal gaps indicate separate items in subcolumns.
+
+        Args:
+            words: List of words on the same line
+
+        Returns:
+            List of line dictionaries (one per subcolumn item)
+        """
+        if not words:
+            return []
+
+        # Sort words by x-coordinate
+        sorted_words = sorted(words, key=lambda w: w['x0'])
+
+        # Detect gaps between words
+        X_GAP_THRESHOLD = 15  # Pixels - gap larger than this indicates new subcolumn
+
+        sublines = []
+        current_subline = [sorted_words[0]]
+
+        for i in range(1, len(sorted_words)):
+            prev_word = sorted_words[i - 1]
+            curr_word = sorted_words[i]
+
+            # Calculate gap between words
+            gap = curr_word['x0'] - prev_word['x1']
+
+            if gap > X_GAP_THRESHOLD:
+                # Large gap - start new subcolumn
+                if current_subline:
+                    sublines.append(self._create_line_dict(current_subline))
+                current_subline = [curr_word]
+            else:
+                # Same subcolumn
+                current_subline.append(curr_word)
+
+        # Add last subline
+        if current_subline:
+            sublines.append(self._create_line_dict(current_subline))
+
+        return sublines
 
     def _create_line_dict(self, words: List[Dict]) -> Dict[str, Any]:
         """
@@ -132,12 +214,17 @@ class PDFParser:
         """
         text = ' '.join(word['text'] for word in words)
 
+        # Get font size from first word (stored in word['font_size'])
+        size = words[0].get('font_size', 0) if words else 0
+
         return {
             'text': text,
             'x0': min(word['x0'] for word in words),
             'x1': max(word['x1'] for word in words),
             'top': min(word['top'] for word in words),
             'bottom': max(word['bottom'] for word in words),
+            'fontname': words[0].get('fontname', ''),
+            'size': size
         }
 
     def extract_raw_text(self) -> str:

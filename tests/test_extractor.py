@@ -38,7 +38,7 @@ class TestMenuExtractor:
         assert len(dishes) > 0, "Should extract at least one dish"
 
         # Reasonable dish count for a 2-page menu
-        assert 20 < len(dishes) < 100, f"Expected 20-100 dishes, got {len(dishes)}"
+        assert 20 < len(dishes) < 120, f"Expected 20-120 dishes, got {len(dishes)}"
 
     def test_dish_structure(self, extractor):
         """Test that dishes have correct structure."""

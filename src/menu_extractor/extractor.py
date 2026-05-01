@@ -50,6 +50,12 @@ class MenuExtractor:
         # Normalize data
         dishes = self.normalizer.normalize_dishes(text_blocks)
 
+        # Filter non-menu items (case-based detection)
+        dishes = self.normalizer.filter_non_menu_items(dishes)
+
+        # Clean dish names (post-processing: remove $X, trim whitespace)
+        dishes = self.normalizer.clean_dish_names(dishes)
+
         # Add dish IDs
         dishes = self.normalizer.add_dish_ids(dishes)
 
