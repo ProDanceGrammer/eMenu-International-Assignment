@@ -1,4 +1,2 @@
-PyPDF2
 pdfplumber
-PyMuPDF
-pdfminer.six
+pytest
