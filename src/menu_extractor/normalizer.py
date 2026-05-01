@@ -37,6 +37,9 @@ class DataNormalizer:
     # Pattern for sub-items (e.g., "6 WINGS", "12 WINGS")
     SUBITEM_PATTERN = re.compile(r'^\d+\s+[A-Z]+')
 
+    # Subcategories that span multiple columns
+    CROSS_COLUMN_SUBCATEGORIES = ['SIGNATURE SAUCES']
+
     def __init__(self):
         """Initialize normalizer."""
         self.current_category = None
@@ -103,14 +106,14 @@ class DataNormalizer:
         if y_gap > self.GAP_THRESHOLD:
             return True
 
-        # Font change detection - stop if font gets LARGER or SAME (new item)
-        # Allow smaller fonts (descriptions)
+        # Font change detection - stop if font gets LARGER (new item)
+        # Allow same or smaller fonts (descriptions can continue)
         if 'size' in current_block and 'size' in previous_block:
             current_size = current_block.get('size', 0)
             previous_size = previous_block.get('size', 0)
 
-            # Stop if current font is same or larger (indicates new item, not description)
-            if current_size >= previous_size:
+            # Only stop if current font is LARGER (changed from >=)
+            if current_size > previous_size:
                 return True
 
         return False
@@ -209,10 +212,20 @@ class DataNormalizer:
         if self._contains_price(text):
             return False
 
-        # All caps, 2+ words, reasonable length
-        if text.isupper():
+        # All caps, reasonable length
+        if text.isupper() and len(text) < 60:
             word_count = len(text.split())
-            if word_count >= 2 and len(text) < 60:
+
+            # Accept 2+ words
+            if word_count >= 2:
+                return True
+
+            # Accept single words (3+ chars): COLESLAW, DILLINOIS, MESQUITE, BUFFALO, CAJUN
+            if word_count == 1 and len(text) >= 3:
+                return True
+
+            # Accept very short items like "B&T"
+            if word_count == 1 and 2 <= len(text) < 3 and '&' in text:
                 return True
 
         # Number + CATEGORY pattern (e.g., "6 WINGS", "3 TENDERS")
@@ -342,9 +355,11 @@ class DataNormalizer:
                     x_pos = block.get('x0', 0)
 
                     # If this subcategory has larger font than most common,
-                    # clear all subcategories (starting a new subcategory section)
+                    # clear subcategories at this x-position only
                     if current_size > self.most_common_font_size:
-                        self.subcategories = {}
+                        keys_to_remove = [k for k in self.subcategories.keys() if abs(k - x_pos) < 30]
+                        for k in keys_to_remove:
+                            del self.subcategories[k]
 
                     self.subcategories[x_pos] = text
                     previous_block = block
@@ -358,7 +373,10 @@ class DataNormalizer:
 
                 # Find the closest subcategory by x-coordinate
                 for subcat_x, subcat_name in self.subcategories.items():
-                    if abs(current_x - subcat_x) < 30:  # 30 pixel tolerance
+                    # Use larger tolerance for cross-column subcategories
+                    tolerance = 200 if subcat_name in self.CROSS_COLUMN_SUBCATEGORIES else 30
+
+                    if abs(current_x - subcat_x) < tolerance:
                         matching_subcategory = subcat_name
                         break
 
@@ -652,3 +670,63 @@ class DataNormalizer:
             filtered.append(dish)
 
         return filtered
+
+    def _split_parenthetical_items(self, dish_name: str) -> List[str]:
+        """
+        Split dish names with parenthetical text into separate items.
+
+        Args:
+            dish_name: Dish name to check
+
+        Returns:
+            List of dish names (split if parenthetical, otherwise original)
+        """
+        match = re.match(r'^(.+?)\s*\((.+?)\)$', dish_name)
+
+        if match:
+            main_item = match.group(1).strip()
+            paren_item = match.group(2).strip()
+
+            # Keep if main item is a known subcategory
+            KNOWN_SUBCATEGORIES = ['SIGNATURE SAUCES', 'FLIGHTS', 'JUMBO CHICKEN WINGS',
+                                   'BREADED CHICKEN TENDERS', 'LOADED MAC']
+            if main_item in KNOWN_SUBCATEGORIES:
+                return [dish_name]
+
+            # Keep if parenthetical is a number pattern
+            if re.match(r'^\d+\s+\w+', paren_item):
+                return [dish_name]
+
+            # Otherwise split
+            return [main_item, paren_item]
+
+        return [dish_name]
+
+    def split_parenthetical_dishes(self, dishes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Split dishes with parenthetical text into separate dishes.
+
+        Args:
+            dishes: List of dish dictionaries
+
+        Returns:
+            List of dishes with parenthetical items split
+        """
+        result = []
+
+        for dish in dishes:
+            dish_names = self._split_parenthetical_items(dish['dish_name'])
+
+            if len(dish_names) > 1:
+                # Split into multiple dishes
+                for name in dish_names:
+                    result.append({
+                        'category': dish['category'],
+                        'dish_name': name,
+                        'price': dish['price'],
+                        'description': dish['description']
+                    })
+            else:
+                result.append(dish)
+
+        return result

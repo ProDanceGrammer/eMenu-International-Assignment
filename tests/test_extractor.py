@@ -157,6 +157,43 @@ class TestMenuExtractor:
             assert dish["dish_name"], f"Dish name should not be empty: {dish}"
             assert len(dish["dish_name"]) > 0, "Dish name should have content"
 
+    def test_extraction_matches_expected_output(self):
+        """Test that extracted menu data matches expected output exactly."""
+        # Run extraction
+        extractor = MenuExtractor("data/espn_bet.pdf", "output/menu_data.json")
+        extractor.run()
+
+        # Load actual output
+        actual_path = Path('output/menu_data.json')
+        with open(actual_path, 'r', encoding='utf-8') as f:
+            actual = json.load(f)
+
+        # Load expected output
+        expected_path = Path('output/expected_menu_data.json')
+        with open(expected_path, 'r', encoding='utf-8') as f:
+            expected = json.load(f)
+
+        # Compare total count
+        assert len(actual) == len(expected), \
+            f"Dish count mismatch: got {len(actual)}, expected {len(expected)}"
+
+        # Compare each dish
+        for i, (actual_dish, expected_dish) in enumerate(zip(actual, expected)):
+            assert actual_dish['category'] == expected_dish['category'], \
+                f"Dish {i}: category mismatch - got '{actual_dish['category']}', expected '{expected_dish['category']}'"
+
+            assert actual_dish['dish_name'] == expected_dish['dish_name'], \
+                f"Dish {i}: dish_name mismatch - got '{actual_dish['dish_name']}', expected '{expected_dish['dish_name']}'"
+
+            assert actual_dish['price'] == expected_dish['price'], \
+                f"Dish {i} ({actual_dish['dish_name']}): price mismatch - got '{actual_dish['price']}', expected '{expected_dish['price']}'"
+
+            assert actual_dish['description'] == expected_dish['description'], \
+                f"Dish {i} ({actual_dish['dish_name']}): description mismatch - got '{actual_dish['description']}', expected '{expected_dish['description']}'"
+
+            assert actual_dish['dish_id'] == expected_dish['dish_id'], \
+                f"Dish {i} ({actual_dish['dish_name']}): dish_id mismatch - got '{actual_dish['dish_id']}', expected '{expected_dish['dish_id']}'"
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

@@ -53,6 +53,9 @@ class MenuExtractor:
         # Filter non-menu items (case-based detection)
         dishes = self.normalizer.filter_non_menu_items(dishes)
 
+        # Split parenthetical dishes (WINES, MAIN EVENT)
+        dishes = self.normalizer.split_parenthetical_dishes(dishes)
+
         # Clean dish names (post-processing: remove $X, trim whitespace)
         dishes = self.normalizer.clean_dish_names(dishes)
 
