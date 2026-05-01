@@ -308,58 +308,83 @@ class DataNormalizer:
                 continue
 
             # Check if this could be a subcategory (all caps, no price, not a category)
-            # A subcategory either:
-            # 1. Has sub-items with number pattern below it (e.g., "6 WINGS")
-            # 2. Has items with smaller font size below it AND is larger than most common font
+            # A subcategory:
+            # 1. Has NO price (no placeholder, no real price)
+            # 2. Has sub-items with number pattern below it (e.g., "6 WINGS")
+            # 3. OR has items below with prices (real or placeholder)
             if (text.isupper() and not self._contains_price(text) and
                 not self._is_category_by_font(block) and
                 not self._is_subitem(text) and  # Sub-items are not subcategories
                 len(text.split()) >= 2):
-                # Look ahead to check for sub-items or smaller font items
-                is_subcategory = False
+                # Check if there's a price on the same line (this is a regular item, not subcategory)
                 current_y = block.get('top', 0)
                 current_x = block.get('x0', 0)
                 current_size = block.get('size', 0)
 
-                for j in range(i + 1, min(i + 15, len(text_blocks))):  # Check up to 15 blocks ahead
+                has_price_on_same_line = False
+                for j in range(i + 1, min(i + 5, len(text_blocks))):
                     next_block = text_blocks[j]
                     next_text = next_block['text'].strip()
                     next_y = next_block.get('top', 0)
-                    next_x = next_block.get('x0', 0)
-                    next_size = next_block.get('size', 0)
 
-                    # Skip blocks on the same line (same y-coordinate)
-                    if abs(next_y - current_y) < 3:  # 3 pixel tolerance
-                        continue
+                    # Check if on same line
+                    if abs(next_y - current_y) < 3:
+                        if self._contains_price(next_text):
+                            has_price_on_same_line = True
+                            break
+                    else:
+                        # Different line, stop checking
+                        break
 
-                    # Check if this next block is in the same column (similar x-coordinate)
-                    if abs(next_x - current_x) < 30:  # 30 pixel tolerance
-                        # Found a block in same column on different line
-                        # Check if it's a sub-item (number pattern)
-                        if self._is_subitem(next_text):
-                            is_subcategory = True
-                            break
-                        # OR check if it has smaller font size AND current is larger than most common
-                        # (to avoid treating regular items with descriptions as subcategories)
-                        elif (next_size > 0 and current_size > 0 and
-                              next_size < current_size and
-                              current_size > self.most_common_font_size):
-                            is_subcategory = True
-                            break
-                        # If same or larger size and not a sub-item, stop looking
-                        elif next_size >= current_size and not self._contains_price(next_text):
-                            break
+                # If has price on same line, this is NOT a subcategory - skip subcategory detection
+                is_subcategory = False
+                if not has_price_on_same_line:
+                    # Look ahead to check for sub-items or items with prices
+                    for j in range(i + 1, min(i + 15, len(text_blocks))):  # Check up to 15 blocks ahead
+                        next_block = text_blocks[j]
+                        next_text = next_block['text'].strip()
+                        next_y = next_block.get('top', 0)
+                        next_x = next_block.get('x0', 0)
+                        next_size = next_block.get('size', 0)
+
+                        # Skip blocks on the same line (same y-coordinate)
+                        if abs(next_y - current_y) < 3:  # 3 pixel tolerance
+                            continue
+
+                        # Check if this next block is in the same column (similar x-coordinate)
+                        if abs(next_x - current_x) < 30:  # 30 pixel tolerance
+                            # Found a block in same column on different line
+                            # Check if it's a sub-item (number pattern)
+                            if self._is_subitem(next_text):
+                                is_subcategory = True
+                                break
+                            # OR check if it has smaller font size AND current is larger than most common
+                            # (to avoid treating regular items with descriptions as subcategories)
+                            elif (next_size > 0 and current_size > 0 and
+                                  next_size < current_size and
+                                  current_size > self.most_common_font_size):
+                                is_subcategory = True
+                                break
+                            # If same or larger size and not a sub-item, stop looking
+                            elif next_size >= current_size and not self._contains_price(next_text):
+                                break
 
                 if is_subcategory:
                     # This is a subcategory - store it by x-coordinate
                     x_pos = block.get('x0', 0)
 
                     # If this subcategory has larger font than most common,
-                    # clear subcategories at this x-position only
+                    # clear subcategories appropriately
                     if current_size > self.most_common_font_size:
-                        keys_to_remove = [k for k in self.subcategories.keys() if abs(k - x_pos) < 30]
-                        for k in keys_to_remove:
-                            del self.subcategories[k]
+                        # If this is a cross-column subcategory, clear ALL subcategories
+                        # (since it will match items in multiple columns)
+                        if text in self.CROSS_COLUMN_SUBCATEGORIES:
+                            self.subcategories = {}
+                        else:
+                            # Otherwise, only clear subcategories at this x-position
+                            keys_to_remove = [k for k in self.subcategories.keys() if abs(k - x_pos) < 30]
+                            for k in keys_to_remove:
+                                del self.subcategories[k]
 
                     self.subcategories[x_pos] = text
                     previous_block = block
@@ -443,10 +468,10 @@ class DataNormalizer:
                 matching_subcategory = None
 
                 for subcat_x, subcat_name in self.subcategories.items():
-                    if abs(current_x - subcat_x) < 30:  # 30 pixel tolerance
-                        # Find the subcategory block to check its font size
-                        # For now, assume if x matches, it's a sub-item
-                        # (We could store font size with subcategory name if needed)
+                    # Use larger tolerance for cross-column subcategories
+                    tolerance = 200 if subcat_name in self.CROSS_COLUMN_SUBCATEGORIES else 30
+
+                    if abs(current_x - subcat_x) < tolerance:
                         matching_subcategory = subcat_name
                         break
 
@@ -689,12 +714,17 @@ class DataNormalizer:
 
             # Keep if main item is a known subcategory
             KNOWN_SUBCATEGORIES = ['SIGNATURE SAUCES', 'FLIGHTS', 'JUMBO CHICKEN WINGS',
-                                   'BREADED CHICKEN TENDERS', 'LOADED MAC']
+                                   'BREADED CHICKEN TENDERS']
             if main_item in KNOWN_SUBCATEGORIES:
                 return [dish_name]
 
-            # Keep if parenthetical is a number pattern
+            # Keep if parenthetical is a number pattern (e.g., "6 WINGS")
             if re.match(r'^\d+\s+\w+', paren_item):
+                return [dish_name]
+
+            # Keep if parenthetical is a single word (flavor/variant, not a separate dish)
+            # e.g., "RED BULL RED EDITION (WATERMELON)" should stay together
+            if len(paren_item.split()) == 1:
                 return [dish_name]
 
             # Otherwise split
@@ -706,26 +736,57 @@ class DataNormalizer:
         """
         Split dishes with parenthetical text into separate dishes.
 
+        For items like "MAIN ITEM (VARIANT)", if MAIN ITEM appears multiple times
+        with different variants, only keep the parenthetical parts to avoid duplicates.
+
         Args:
             dishes: List of dish dictionaries
 
         Returns:
             List of dishes with parenthetical items split
         """
-        result = []
+        # First pass: identify main items that appear multiple times with parentheticals
+        main_item_counts = {}
+        for dish in dishes:
+            match = re.match(r'^(.+?)\s*\((.+?)\)$', dish['dish_name'])
+            if match:
+                main_item = match.group(1).strip()
+                paren_item = match.group(2).strip()
 
+                # Only count if it would be split (multi-word parenthetical, not a subcategory)
+                KNOWN_SUBCATEGORIES = ['SIGNATURE SAUCES', 'FLIGHTS', 'JUMBO CHICKEN WINGS',
+                                       'BREADED CHICKEN TENDERS']
+                if (main_item not in KNOWN_SUBCATEGORIES and
+                    not re.match(r'^\d+\s+\w+', paren_item) and
+                    len(paren_item.split()) > 1):
+                    main_item_counts[main_item] = main_item_counts.get(main_item, 0) + 1
+
+        # Second pass: split dishes
+        result = []
         for dish in dishes:
             dish_names = self._split_parenthetical_items(dish['dish_name'])
 
             if len(dish_names) > 1:
-                # Split into multiple dishes
-                for name in dish_names:
+                main_item = dish_names[0]
+                paren_item = dish_names[1]
+
+                # If main item appears multiple times with parentheticals, only keep parenthetical
+                if main_item in main_item_counts and main_item_counts[main_item] > 1:
                     result.append({
                         'category': dish['category'],
-                        'dish_name': name,
+                        'dish_name': paren_item,
                         'price': dish['price'],
                         'description': dish['description']
                     })
+                else:
+                    # Otherwise keep both
+                    for name in dish_names:
+                        result.append({
+                            'category': dish['category'],
+                            'dish_name': name,
+                            'price': dish['price'],
+                            'description': dish['description']
+                        })
             else:
                 result.append(dish)
 
