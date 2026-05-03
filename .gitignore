@@ -20,12 +20,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual Environment
-.venv/
-venv/
-ENV/
-env/
-
 # IDE
 .vscode/
 .idea/
@@ -36,19 +30,4 @@ env/
 # OS
 .DS_Store
 Thumbs.db
-
-# Environment variables
-.env
-.env.local
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Logs
-*.log
-
-# Project specific
-ignore/
 .claude/
