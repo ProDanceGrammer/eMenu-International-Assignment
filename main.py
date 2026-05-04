@@ -248,7 +248,6 @@ def structure_page(pdf_path, page_num=0):
         return updated_words
 
     def obtain_sizes_data(words) -> Dict[str, float]:
-
         font_sizes = {}
 
         for word in words:
@@ -330,13 +329,13 @@ def structure_page(pdf_path, page_num=0):
     def phrases_processing(phrases: List[Phrase], size_data: Dict[str, float]) -> List[Dict[str, Any]]:
 
         def phrases_classify(phrases: List[Phrase]):
-            for i, phrase in enumerate(phrases):
+            for phrase in phrases:
                 phrase.classify(**size_data)
             return phrases
 
         def accumulate_categories(phrases: List[Phrase]) -> set[Phrase]:
             category_phrases: set[Phrase] = set()
-            for i, phrase in enumerate(phrases):
+            for phrase in phrases:
                 if phrase.type == 'category':
                     category_phrases.add(phrase)
             return category_phrases
@@ -344,23 +343,17 @@ def structure_page(pdf_path, page_num=0):
         def accumulate_potential_items(phrases: List[Phrase], category_phrases) -> List[Phrase]:
             item_phrases: List[Phrase] = []
             # Traverse potential items by categories
-            for i, category_phrase in enumerate(category_phrases):
+            for category_phrase in category_phrases:
                 # Traverse subphrases
                 for potential_item_phrase in phrases:
-                    if potential_item_phrase.type in ['category', 'price']:
-                        continue
-                    if potential_item_phrase.max_height >= category_phrase.max_height:
-                        continue
-                    if potential_item_phrase.max_y > category_phrase.min_y:
-                        continue
-                    if potential_item_phrase.x0 < category_phrase.x0:
-                        continue
-                    if not potential_item_phrase.text.isupper():
+                    if (potential_item_phrase.type in ['category', 'price'] or
+                            potential_item_phrase.max_height >= category_phrase.max_height or
+                            potential_item_phrase.max_y > category_phrase.min_y or
+                            potential_item_phrase.x0 < category_phrase.x0 or
+                            not potential_item_phrase.text.isupper()
+                    ):
                         continue
                     # TODO: exclude the coupling with a uppercase logic, because in other menu it will look differently
-
-                    # is this phrase an item of this category
-                    # Is a sub-phrase below this Category
 
                     distance_with_current_category = euclidean_distance(potential_item_phrase.x0, category_phrase.x0,
                                                                         potential_item_phrase.min_y,
@@ -396,19 +389,12 @@ def structure_page(pdf_path, page_num=0):
             # traverse to find description
             for item_phrase in item_phrases:
                 for potential_description_phrase in phrases:
-                    if potential_description_phrase.id == item_phrase.id:
-                        continue
-
-                    if potential_description_phrase.type in ['category', 'price']:
-                        continue
-
-                    if potential_description_phrase.max_height >= item_phrase.max_height:
-                        continue
-
-                    if potential_description_phrase.max_y > item_phrase.min_y:
-                        continue
-
-                    if abs(potential_description_phrase.x1 - potential_description_phrase.x0) > MAX_DESCRIPTION_LENGTH:
+                    if (potential_description_phrase.id == item_phrase.id or
+                            potential_description_phrase.type in ['category', 'price'] or
+                            potential_description_phrase.max_height >= item_phrase.max_height or
+                            potential_description_phrase.max_y > item_phrase.min_y or
+                            abs(potential_description_phrase.x1 - potential_description_phrase.x0) > MAX_DESCRIPTION_LENGTH
+                    ):
                         continue
 
                     distance_with_current_item = euclidean_distance(potential_description_phrase.x0, item_phrase.x0,
@@ -443,20 +429,15 @@ def structure_page(pdf_path, page_num=0):
 
         def allocate_prices(item_phrases, phrases, category_phrases):
             # Traverse to find prices
-            for i, item_phrase in enumerate(item_phrases + list(category_phrases)):
+            for item_phrase in item_phrases + list(category_phrases):
                 for potential_price_phrase in phrases:
 
-                    if potential_price_phrase.type not in ['price']:
-                        continue
-                    if abs(potential_price_phrase.max_y - item_phrase.max_y) > 5:
-                        continue
-
-                    if potential_price_phrase.x0 < item_phrase.x0:
-                        continue
-
-                    if item_phrase.words[-1].right_neighbor.id_in_page is not potential_price_phrase.words[
-                        0].id_in_page:
-                        continue
+                    if (potential_price_phrase.type not in ['price'] or
+                            abs(potential_price_phrase.max_y - item_phrase.max_y) > 5 or
+                            potential_price_phrase.x0 < item_phrase.x0 or
+                            item_phrase.words[-1].right_neighbor.id_in_page is not potential_price_phrase.words[0].id_in_page
+                    ):
+                       continue
 
                     item_phrase.price_phrase = potential_price_phrase
             return item_phrases, phrases, category_phrases
@@ -464,7 +445,7 @@ def structure_page(pdf_path, page_num=0):
         def accumulate_subcategories(item_phrases):
             subcategory_phrases: set[Phrase] = set()
             # Traverse subcategories
-            for i, item_phrase in enumerate(item_phrases):
+            for item_phrase in item_phrases:
                 # TODO: Replace with is_instance(item_phrase, PricePhrase)
                 if item_phrase.max_height == size_data['subcategory_size']:
                     item_phrase.type = "subcategory"
@@ -482,24 +463,18 @@ def structure_page(pdf_path, page_num=0):
         def accumulate_subitems(item_phrases, subcategory_phrases):
 
             subitem_phrases: set[Phrase] = set()
-            for i, subcategory_phrase in enumerate(subcategory_phrases):
+            for subcategory_phrase in subcategory_phrases:
                 for potential_sub_item_phrase in item_phrases:
                     # TODO add sorting in result by category and items' coordinates
-                    if potential_sub_item_phrase.id is subcategory_phrase.id:
-                        continue
-                    if potential_sub_item_phrase.type in ['subcategory']:
-                        continue
-                    if subcategory_phrase.type in ['subitem']:
-                        continue
-                    if subcategory_phrase.type == potential_sub_item_phrase.type == 'potential_subcategory':
-                        continue
-                    if potential_sub_item_phrase.max_height > subcategory_phrase.max_height:
-                        continue
-                    if potential_sub_item_phrase.max_y > subcategory_phrase.min_y:
-                        continue
-                    if potential_sub_item_phrase.x0 < subcategory_phrase.x0:
-                        continue
-                    if not potential_sub_item_phrase.text.isupper():
+                    if (potential_sub_item_phrase.id is subcategory_phrase.id or
+                            potential_sub_item_phrase.type in ['subcategory'] or
+                            subcategory_phrase.type in ['subitem'] or
+                            subcategory_phrase.type == potential_sub_item_phrase.type == 'potential_subcategory' or
+                            potential_sub_item_phrase.max_height > subcategory_phrase.max_height or
+                            potential_sub_item_phrase.max_y > subcategory_phrase.min_y or
+                            potential_sub_item_phrase.x0 < subcategory_phrase.x0 or
+                            not potential_sub_item_phrase.text.isupper()
+                    ):
                         continue
                     # TODO: exclude the coupling with a uppercase logic, because in other menu it will look differently
 
@@ -530,12 +505,10 @@ def structure_page(pdf_path, page_num=0):
                                     other_category_sub_phrase = True
                                     break
 
-                    if other_category_sub_phrase:
-                        continue
-
-                    if potential_sub_item_phrase.sub_category_vertical_distance < vertical_distance_current_subcategory:
-                        continue
-                    if potential_sub_item_phrase.category_distance < distance_with_current_subcategory:
+                    if (other_category_sub_phrase or
+                            potential_sub_item_phrase.sub_category_vertical_distance < vertical_distance_current_subcategory or
+                            potential_sub_item_phrase.category_distance < distance_with_current_subcategory
+                    ):
                         continue
 
                     potential_sub_item_phrase.sub_category_vertical_distance = vertical_distance_current_subcategory
@@ -549,7 +522,7 @@ def structure_page(pdf_path, page_num=0):
         def format_output(item_phrases, subitem_phrases):
             result_json = []
             # Excluding 'descriptions', 'category', 'price','subcategory', 'subitem' from items
-            for i, item_phrase in enumerate(item_phrases):
+            for item_phrase in item_phrases:
 
                 # Pull a price from a category if in item it is excluded
                 if item_phrase.price_phrase.type != 'price' and item_phrase.category_phrase.price_phrase.type == 'price':
@@ -569,7 +542,7 @@ def structure_page(pdf_path, page_num=0):
                     "dish_id": item_phrase.id
                 })
 
-            for i, subitem_phrase in enumerate(subitem_phrases):
+            for subitem_phrase in subitem_phrases:
 
                 if subitem_phrase.type not in ['subitem']:
                     continue
